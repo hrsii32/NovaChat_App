@@ -1,0 +1,25 @@
+<div class="chat-card">
+  <div class="chat-window" id="chatWindow">
+    
+    <div *ngFor="let m of messages" class="message-row" [ngClass]="m.from">
+      <div class="bubble">
+        <div class="text">{{ m.text }}</div>
+        <div class="ts" *ngIf="m.ts">{{ m.ts | date:'shortTime' }}</div>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="message-row bot">
+      <div class="bubble typing">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="composer">
+    <input [(ngModel)]="userMessage" (keydown.enter)="sendMessage()" placeholder="Type your message..." />
+    <button (click)="sendMessage()" [disabled]="loading || !userMessage.trim()">Send</button>
+  </div>
+
+  <div class="error" *ngIf="error">{{ error }}</div>
+</div>
